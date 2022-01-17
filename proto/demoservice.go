@@ -1,9 +1,9 @@
 package proto
 
-type DemoRequest struct {
+type DemoHelloRequest struct {
 	Name string
 }
 
-type DemoResponse struct {
+type DemoHelloResponse struct {
 	Msg string
 }
