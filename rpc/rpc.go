@@ -1,10 +1,10 @@
 package rpc
 
 import (
-	"carefreesky/global"
+	"carefreex/global"
 	"context"
-	"github.com/carefreeskyio/example/proto"
-	"github.com/carefreeskyio/rpcxclient"
+	"github.com/carefreex-io/example/proto"
+	"github.com/carefreex-io/rpcxclient"
 	"strings"
 	"sync"
 	"time"
