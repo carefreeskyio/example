@@ -1,15 +1,13 @@
 package rpc
 
 import (
-	"carefreex/global"
 	"context"
+	"github.com/carefreex-io/config"
 	"github.com/carefreex-io/example/proto"
 	"github.com/carefreex-io/rpcxclient"
-	"strings"
 	"sync"
 	"time"
 )
-
 
 type Client struct {
 	XClient *rpcxclient.Client
@@ -28,7 +26,7 @@ func NewClient() (*Client, error) {
 
 	if c == nil {
 		once.Do(func() {
-			rpcXClient, err = rpcxclient.NewClient(initOptions())
+			rpcXClient, err = rpcxclient.NewClient(getOptions())
 			if err != nil {
 				return
 			}
@@ -42,13 +40,13 @@ func NewClient() (*Client, error) {
 }
 
 // 获取初始化rpcXClient客户端属性，可根据实际需求修改
-func initOptions() (options rpcxclient.Options) {
-	options = rpcxclient.DefaultOptions
-	options.BasePath = "/carefreesky"
-	options.ServerName = "CarefreeSky"
-	options.Addr = strings.Split(global.Config.Registry.Addr, " ")
-	options.Group = global.Config.Registry.Group
-	options.Timeout = time.Duration(global.Config.Rpc.WithTimeout) * time.Second
+func getOptions() *rpcxclient.Options {
+	options := rpcxclient.DefaultOptions
+	options.RegistryOption.BasePath = "/carefreex"
+	options.RegistryOption.ServerName = "CarefreeX"
+	options.RegistryOption.Addr = config.GetStringSlice("Registry.Addr")
+	options.RegistryOption.Group = config.GetString("Registry.Group")
+	options.Timeout = config.GetDuration("Rpc.Timeout") * time.Second
 
 	return options
 }
